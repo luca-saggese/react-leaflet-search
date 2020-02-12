@@ -15,6 +15,7 @@ type ReactLeafletSearchProps = MapControlProps &
         customProvider?: { search: (value: string) => Promise<any> };
         markerIcon?: Icon;
         popUp?: (i: { latLng: LatLng; info: string | Array<string>; raw: Object }) => JSX.Element;
+        searchCallback?: ({ event, payload }: { event: "add" | "remove"; payload?: { latlng: LatLng; info: string; raw: any } }) => void;
     };
 
 interface ReactLeafletSearchState {
@@ -33,6 +34,7 @@ export default class ReactLeafletSearch extends MapControl<ReactLeafletSearchPro
     } | null;
     state: ReactLeafletSearchState;
     markerRef: React.RefObject<Marker>;
+    searchCallback?: ({ event, payload }: { event: "add" | "remove"; payload?: { latlng: LatLng; info: string; raw: any } }) => void;
     constructor(props: ReactLeafletSearchProps, context: LeafletContext) {
         super(props);
         this.div = DomUtil.create("div", "leaflet-search-wrap") as HTMLDivElement;
@@ -55,6 +57,9 @@ export default class ReactLeafletSearch extends MapControl<ReactLeafletSearchPro
         this.SearchInfo = null; // searched lat,lng or response from provider
         this.map = context.map || props.leaflet?.map;
         this.markerRef = React.createRef();
+        if (props.searchCallback) {
+            this.searchCallback = props.searchCallback;
+        }
     }
 
     createLeafletElement(props: ReactLeafletSearchProps) {
@@ -66,6 +71,9 @@ export default class ReactLeafletSearch extends MapControl<ReactLeafletSearchPro
     }
 
     handler = ({ event, payload }: { event: "add" | "remove"; payload?: { latlng: LatLng; info: string; raw: any } }) => {
+        if (this.searchCallback) {
+            this.searchCallback({event, payload});
+        }
         if (event === "add") {
             payload && this.latLngHandler(payload.latlng, payload.info, payload.raw);
         } else {

@@ -17,6 +17,14 @@ declare type ReactLeafletSearchProps = MapControlProps & SearchControlProps & {
         info: string | Array<string>;
         raw: Object;
     }) => JSX.Element;
+    searchCallback?: ({ event, payload }: {
+        event: "add" | "remove";
+        payload?: {
+            latlng: LatLng;
+            info: string;
+            raw: any;
+        };
+    }) => void;
 };
 interface ReactLeafletSearchState {
     search: LatLng | false;
@@ -33,6 +41,14 @@ export default class ReactLeafletSearch extends MapControl<ReactLeafletSearchPro
     } | null;
     state: ReactLeafletSearchState;
     markerRef: React.RefObject<Marker>;
+    searchCallback?: ({ event, payload }: {
+        event: "add" | "remove";
+        payload?: {
+            latlng: LatLng;
+            info: string;
+            raw: any;
+        };
+    }) => void;
     constructor(props: ReactLeafletSearchProps, context: LeafletContext);
     createLeafletElement(props: ReactLeafletSearchProps): {
         onAdd: (map: Map) => HTMLDivElement;
