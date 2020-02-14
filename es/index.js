@@ -1,4 +1,4 @@
-import{LatLng as e,DomUtil as t,DomEvent as s,icon as o,Control as n}from"leaflet";import r from"react";import{createPortal as i}from"react-dom";import{MapControl as a,Popup as l,Marker as c,withLeaflet as h}from"react-leaflet";import p from"prop-types";
+import{LatLng as e,DomUtil as t,DomEvent as s,icon as o,Control as n}from"leaflet";import r from"react";import{render as i}from"react-dom";import{MapControl as a,Popup as l,Marker as c,withLeaflet as h}from"react-leaflet";import p from"prop-types";
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use

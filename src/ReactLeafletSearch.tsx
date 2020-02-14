@@ -1,7 +1,7 @@
 import { Control, DomUtil, DomEvent, icon, Icon, LatLng, Map, ZoomPanOptions, IconOptions, ControlOptions } from "leaflet";
 import React from "react";
 // import PropTypes from "prop-types";
-import { createPortal } from "react-dom";
+import { render as domRender } from "react-dom";
 import { Popup, MapControl, Marker, LeafletContext, MapControlProps } from "react-leaflet";
 import { SearchControl, SearchControlProps } from "./search-control";
 
@@ -120,7 +120,7 @@ export default class ReactLeafletSearch extends MapControl<ReactLeafletSearchPro
 
     componentDidMount() {
         super.componentDidMount && super.componentDidMount();
-        createPortal(
+        domRender(
             <SearchControl
                 className={this.props.className}
                 provider={this.props.provider}
